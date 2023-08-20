@@ -1,0 +1,5 @@
+<div *ngFor="let playlist of playlists">
+  <h3>{{ playlist.name }}</h3>
+  <p>Owner: {{ playlist.owner.display_name }}</p>
+  <p>Total Tracks: {{ playlist.tracks.total }}</p>
+</div>
