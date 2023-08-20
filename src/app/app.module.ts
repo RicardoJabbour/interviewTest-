@@ -9,6 +9,13 @@ import { LoginComponent } from './Component/login/login.component';
 import { RouterModule } from '@angular/router';
 import { UserRoutes } from './app.route';
 import { SearchComponent } from './Component/search/search.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StarRatingModule } from 'angular-star-rating';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,12 +24,19 @@ import { SearchComponent } from './Component/search/search.component';
     SearchComponent,
   ],
   imports: [
+    MatIconModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forChild(UserRoutes),
     ReactiveFormsModule,
+    StarRatingModule.forRoot(),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    // MatRippleModule,
   ],
   providers: [
     // {

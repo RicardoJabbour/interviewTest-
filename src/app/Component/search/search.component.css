@@ -1,0 +1,74 @@
+.artistImgStyle{
+  width: 200px;
+  height: 200px ;
+  border-radius: 50%;
+}
+
+.artistsContainerStyle{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.artistInfoStyle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: inherit;
+  align-items: flex-start;
+}
+
+.artistLoopStyle{
+  margin: 0 20px 20px 0;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  align-items: center;
+  width: 356px;
+  justify-content: space-evenly;
+  background: linear-gradient(180deg, #94dd67 25%, #35f191 100%);
+  box-shadow: -3px -3px 5px 0px #3ace87 inset;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-top-right-radius: 64px;
+}
+
+.artistWithoutImgStyle{
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+  border-radius: 50%;
+}
+
+.filled {
+  color: gold; /* or any color you prefer for filled stars */
+}
+
+.empty {
+  color: lightgrey; /* or any color you prefer for empty stars */
+}
+
+.half-filled {
+  color: gold; /* or any color you prefer for half-filled stars */
+  transform: scale(0.8); /* Adjust size to visually indicate half star */
+}
+
+.artistNameStyle{
+  color: #668a0d;
+  font-family: Roboto;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.artistLoopStyle:hover{
+  background: linear-gradient(180deg, #ddffc7 25%, #7fb298 100%);
+  box-shadow: -3px -3px 5px 0px #369065 inset;
+  cursor: pointer;
+}

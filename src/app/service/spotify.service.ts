@@ -54,7 +54,9 @@ export class SpotifyService {
 
       const params = new HttpParams()
         .set('q', query)
-        .set('type', 'artist');
+        .set('type', 'artist')
+        .set('limit',50)
+        .set('offset', 0);
 
       return this.http.get(url, { headers, params });
     }
@@ -73,6 +75,17 @@ export class SpotifyService {
         return token;
       else
         return '';
+    }
+
+    getAlbum(albumId: string): Observable<any> {
+
+      const headers = this.getAuthHeaders();
+
+      const params = new HttpParams()
+        .set('limit',50)
+        .set('offset', 0);
+
+      return this.http.get(`${this.apiUrl}/artists/${albumId}/albums`, { headers, params });
     }
 
 }

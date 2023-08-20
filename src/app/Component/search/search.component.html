@@ -1,21 +1,22 @@
-<!-- <input [(ngModel)]="searchQuery" placeholder="Search for an artist">
-<button (click)="searchArtist()">Search</button> -->
-
-
-
-
-<!-- <ul>
-  <li *ngFor="let artist of artists">{{ artist.name }}</li>
-</ul> -->
-
-
-
-<!-- <mat-form-field>
+<mat-form-field>
   <input matInput [formControl]="searchControl" placeholder="Search for artists">
-</mat-form-field> -->
+</mat-form-field>
 
-<ul>
-  <li *ngFor="let artist of artists">
-    {{ artist.name }}
-  </li>
-</ul>
+<div class="artistsContainerStyle">
+  <div (click)="getArtistAlbum(artist.id)" class="artistLoopStyle" *ngFor="let artist of artists">
+      <img *ngIf="artist.images[1]" class="artistImgStyle" [src]="artist?.images[1]?.url">
+      <div class="artistWithoutImgStyle" *ngIf="!artist?.images[1]">No Image</div>
+
+      <div class="artistInfoStyle">
+        <div class="artistNameStyle">{{artist.name}}</div>
+
+        <div>
+          <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" [ngClass]="{'filled': star <= ratingOn5Scale(artist.popularity), 'empty': star > ratingOn5Scale(artist.popularity)}">
+             star
+          </mat-icon>
+        </div>
+
+        <div>{{artist.followers.total}} followers </div>
+      </div>
+  </div>
+</div>

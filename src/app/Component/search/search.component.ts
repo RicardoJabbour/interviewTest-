@@ -14,18 +14,20 @@ export class SearchComponent implements OnInit {
   starRating: number = 5;
   artists : any[] = [];
   searchControl = new FormControl();
-  // artists: any[] = [];
+  rating: number = 3;
+  ratingArr : number[] = [];
+  starsCount : any;
 
   constructor(
     private spotifyService:SpotifyService,
   ) {
-    // this.searchControl.valueChanges.pipe(
-    //   debounceTime(300), // Delay before making the API call
-    //   distinctUntilChanged(), // Only trigger if the value changes
-    //   switchMap((query: string) => this.spotifyService.searchArtists(query))
-    // ).subscribe((results: any) => {
-    //   this.artists = results.artists.items;
-    // });
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300), // Delay before making the API call
+      distinctUntilChanged(), // Only trigger if the value changes
+      switchMap((query: string) => this.spotifyService.searchArtists(query))
+    ).subscribe((results: any) => {
+      this.artists = results.artists.items;
+    });
   }
 
   ngOnInit(): void {
@@ -35,13 +37,20 @@ export class SearchComponent implements OnInit {
     })
   }
 
-  // searchArtists() {
-    // this.spotifyService.searchArtists(this.searchQuery).subscribe(data =>{
-    //   debugger
-    //   this.artists.push(...data.artists.items);
-    //   console.log(this.artists);
-    // })
+  showIcon(index:number) {
+    if (this.rating >= index + 1) {
+      return 'star';
+    } else {
+      return 'star_border';
+    }
+  }
 
+  ratingOn5Scale = (ratingOn100Scale: number) => Math.round((ratingOn100Scale / 100) * 5);
 
-  // }
+  getArtistAlbum(artistId: string){
+    this.spotifyService.getAlbum(artistId).subscribe(data =>{
+      console.log(data);
+    });
+  }
+
 }
