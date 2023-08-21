@@ -8,6 +8,8 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class LoginComponent implements OnInit {
 
+  backgroundImageUrl = '../../../assets/images/spotifi20-1024x512.jpg';
+
   constructor(
     private spotifyService:SpotifyService,
   ) {}

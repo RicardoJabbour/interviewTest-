@@ -1,0 +1,32 @@
+
+<div class="albumsStyle">
+  <div *ngIf="this.artist.name" class="artistDataStyle">
+    <img class="artistImgStyle" [src]="this.artist.img">
+    <div style="padding-left: 30px;">
+      <div class="artistNameStyle">{{this.artist.name}}</div>
+      <div class="followersStyle">{{this.artist.followers}} followers</div>
+    </div>
+  </div>
+
+<div class="albumContainerStyle">
+  <div class="albumStyle" (click)="openArtistAlbum(album.external_urls.spotify)" *ngFor="let album of albums">
+    <img class="albimImgStyle" [src]="album?.images[1]?.url">
+
+    <div class="albumDataStyle">
+
+      <div class="albumNameStyle">{{album.name}}</div>
+
+      <div class="albumInfoStyle">
+        <div class="subDataStyle">{{getYear(album.release_date)}}</div>
+
+        <div class="pointStyle subDataStyle"></div>
+
+          <div *ngFor="let artist of album.artists">
+            {{artist.name}}
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>

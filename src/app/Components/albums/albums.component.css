@@ -1,0 +1,100 @@
+.albumContainerStyle{
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    background: linear-gradient(180deg, #2f302d 25%, #123021 100%);
+    box-shadow: -3px -3px 5px 0px #0b1913 inset;
+}
+
+.albumStyle{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 10px;
+  margin: 0 20px 20px 0;
+  cursor: pointer;
+  max-width: 300px;
+  color: white;
+  background-color: #202020;
+  min-height: 230px;
+}
+
+.albumStyle:hover{
+  background-color: #454545;
+}
+
+.albimImgStyle{
+  width: 140px;
+  height: 140px;
+  border-radius: 34%;
+  padding: 0 10px 10px 0;
+}
+
+.albumDataStyle{
+  padding: 0 0 0 10px;
+}
+
+.pointStyle{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #6a6a6a;
+}
+
+.albumInfoStyle{
+  display: flex;
+  padding-bottom: 5px;
+  flex-direction: row;
+  font-size: 0.875rem;
+  align-items: center;
+  color: #6a6a6a;
+}
+
+.subDataStyle{
+  margin-right: 5px;
+}
+
+.artistDataStyle{
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  background: linear-gradient(180deg, rgb(177 152 152)25%, rgb(114 104 104) 100%);
+  box-shadow: -3px -3px 5px 0px rgb(224, 208, 208) inset;
+  flex-wrap: wrap;
+}
+
+.albumsStyle{
+  background: linear-gradient(180deg, rgba(0,0,0,.6) 25%, #a0a9af 100%);
+  box-shadow: -3px -3px 5px 0px #666e74 inset;
+}
+
+.artistImgStyle{
+  border-radius: 50%;
+  max-width: 210px;
+  max-height: 210px;
+}
+
+.albumNameStyle{
+  font-size: 1rem;
+  font-family: CircularSp;
+  padding-bottom: 5px;
+}
+
+.artistNameStyle{
+  font-size: 4.5rem;
+  color: white;
+  font-family: CircularSpTitle;
+}
+
+.followersStyle{
+  font-size: 1rem;
+  line-height: 2;
+  margin-top: 4px;
+  color: white;
+  font-family: CircularSpTitle;
+}

@@ -1,22 +1,23 @@
-<mat-form-field>
-  <input matInput [formControl]="searchControl" placeholder="Search for artists">
-</mat-form-field>
+<div [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" class="searchContainerStyle">
+  <div class="inputContainerStyle">
+    <input class="searchInputStyle" matInput [formControl]="searchControl" placeholder="Search for artists">
+  </div>
+  <div class="artistsContainerStyle">
+    <div (click)="getArtistAlbum(artist.id,artist)" class="artistLoopStyle" *ngFor="let artist of artists">
+        <img *ngIf="artist.images[1]" class="artistImgStyle" [src]="artist?.images[1]?.url">
+        <div class="artistWithoutImgStyle" *ngIf="!artist?.images[1]">No Image</div>
 
-<div class="artistsContainerStyle">
-  <div (click)="getArtistAlbum(artist.id)" class="artistLoopStyle" *ngFor="let artist of artists">
-      <img *ngIf="artist.images[1]" class="artistImgStyle" [src]="artist?.images[1]?.url">
-      <div class="artistWithoutImgStyle" *ngIf="!artist?.images[1]">No Image</div>
+        <div class="artistInfoStyle">
+          <div class="artistNameStyle">{{artist.name}}</div>
 
-      <div class="artistInfoStyle">
-        <div class="artistNameStyle">{{artist.name}}</div>
+          <div>
+            <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" [ngClass]="{'filled': star <= ratingOn5Scale(artist.popularity), 'empty': star > ratingOn5Scale(artist.popularity)}">
+              star
+            </mat-icon>
+          </div>
 
-        <div>
-          <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" [ngClass]="{'filled': star <= ratingOn5Scale(artist.popularity), 'empty': star > ratingOn5Scale(artist.popularity)}">
-             star
-          </mat-icon>
+          <div class="followersStyle">{{artist.followers.total}} followers </div>
         </div>
-
-        <div>{{artist.followers.total}} followers </div>
-      </div>
+    </div>
   </div>
 </div>

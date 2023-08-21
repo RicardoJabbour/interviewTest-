@@ -1,6 +1,9 @@
+import { Artist } from './../../models/artist.model';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { ArtistDataService } from 'src/app/services/artist-data.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -17,9 +20,12 @@ export class SearchComponent implements OnInit {
   rating: number = 3;
   ratingArr : number[] = [];
   starsCount : any;
+  backgroundImageUrl = '../../../assets/images/spotifi14.jpg';
 
   constructor(
     private spotifyService:SpotifyService,
+    private router: Router,
+    private artistDataService: ArtistDataService,
   ) {
     this.searchControl.valueChanges.pipe(
       debounceTime(300), // Delay before making the API call
@@ -47,10 +53,14 @@ export class SearchComponent implements OnInit {
 
   ratingOn5Scale = (ratingOn100Scale: number) => Math.round((ratingOn100Scale / 100) * 5);
 
-  getArtistAlbum(artistId: string){
-    this.spotifyService.getAlbum(artistId).subscribe(data =>{
-      console.log(data);
-    });
+  getArtistAlbum(artistId: string, artist:any){
+    let artistToSet = new Artist;
+    artistToSet.followers = artist.followers.total;
+    artistToSet.img = artist?.images[1]?.url;
+    artistToSet.name = artist.name;
+
+    this.artistDataService.setArtistData(artistToSet)
+    this.router.navigate(['/album', artistId]);
   }
 
 }

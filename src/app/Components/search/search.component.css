@@ -14,28 +14,29 @@
 .artistInfoStyle{
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
   justify-content: center;
   height: inherit;
   align-items: flex-start;
 }
 
 .artistLoopStyle{
-  margin: 0 20px 20px 0;
+  margin: 0 20px 20px;
   display: flex;
   flex-direction: row;
   height: 200px;
   align-items: center;
   width: 356px;
   justify-content: space-evenly;
-  background: linear-gradient(180deg, #94dd67 25%, #35f191 100%);
-  box-shadow: -3px -3px 5px 0px #3ace87 inset;
+  background: linear-gradient(180deg, #2c2c2b 25%, #114028 100%);
+  box-shadow: -3px -3px 5px 0px #195c3c inset;
   border-top-left-radius: 100px;
   border-bottom-left-radius: 100px;
   border-top-right-radius: 64px;
 }
 
 .artistWithoutImgStyle{
-  width: 200px;
+  min-width: 200px;
   height: 200px;
   display: flex;
   flex-direction: row;
@@ -68,7 +69,39 @@
 }
 
 .artistLoopStyle:hover{
-  background: linear-gradient(180deg, #ddffc7 25%, #7fb298 100%);
-  box-shadow: -3px -3px 5px 0px #369065 inset;
+  background: linear-gradient(180deg, #424c3b 25%, #495b52 100%);
+  box-shadow: -3px -3px 5px 0px #243c31 inset;
   cursor: pointer;
+}
+
+.searchInputStyle{
+  background-color: #242424;
+  border: 0;
+  border-radius: 500px;
+  color: #fff!important;
+  min-height: 48px;
+  padding: 6px 36px;
+  text-overflow: ellipsis;
+  width: 50%;
+}
+
+.searchContainerStyle{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100%;
+}
+
+.inputContainerStyle{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0 20px 0;
+  justify-content: center;
+}
+
+.followersStyle{
+  color: #5c8a0d;
 }
