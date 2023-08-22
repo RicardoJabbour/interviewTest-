@@ -20,6 +20,8 @@ import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guard/auth.guard';
+import { LoaderService } from './services/loader.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,7 @@ import { AuthGuard } from './guard/auth.guard';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    // MatRippleModule,
+    MatProgressBarModule
   ],
   providers: [
     {
@@ -52,7 +54,8 @@ import { AuthGuard } from './guard/auth.guard';
     useClass: TokenInterceptorService,
     multi: true
   },
-  AuthGuard
+  AuthGuard,
+  LoaderService,
 ],
   bootstrap: [AppComponent]
 })

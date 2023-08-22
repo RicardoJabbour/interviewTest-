@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
   ratingArr : number[] = [];
   starsCount : any;
   backgroundImageUrl = '../../../assets/images/spotifi14.jpg';
+  nextUrl: string = '';
 
   constructor(
     private spotifyService:SpotifyService,
@@ -31,8 +32,13 @@ export class SearchComponent implements OnInit {
       debounceTime(300), // Delay before making the API call
       distinctUntilChanged(), // Only trigger if the value changes
       switchMap((query: string) => this.spotifyService.searchArtists(query))
-    ).subscribe((results: any) => {
-      this.artists = results.artists.items;
+    ).subscribe(
+      (results: any) => {
+        this.nextUrl = results?.artists?.next;
+        this.artists = results.artists.items;
+    },
+    err =>{
+      console.log(err);
     });
   }
 
@@ -44,8 +50,14 @@ export class SearchComponent implements OnInit {
 
     if(this.artistDataService.getSearchTerm() !== ''){
       this.searchControl.setValue(this.artistDataService.getSearchTerm());
-      this.spotifyService.searchArtists(this.artistDataService.getSearchTerm()).subscribe((results: any) => {
+      this.spotifyService.searchArtists(this.artistDataService.getSearchTerm()).subscribe(
+        (results: any) => {
+        this.nextUrl = results.artists.next;
+
         this.artists = results.artists.items;
+      },
+      err =>{
+        console.log(err);
       });
     }
   }
@@ -73,6 +85,13 @@ export class SearchComponent implements OnInit {
   clearSearch(){
     this.searchControl.setValue('');
     this.artists = [];
+  }
+
+  loadMore(){
+    this.spotifyService.loadMore(this.nextUrl).subscribe((data: any) =>{
+      this.artists.push(...data.artists.items);
+      this.nextUrl = data.artists.next;
+    });
   }
 
 }

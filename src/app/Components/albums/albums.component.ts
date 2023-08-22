@@ -13,6 +13,7 @@ export class AlbumsComponent implements OnInit {
 
   albums: any[] = [];
   artist = new Artist;
+  nextUrl: string = '';
 
   constructor(
     private spotifyService:SpotifyService,
@@ -27,6 +28,7 @@ export class AlbumsComponent implements OnInit {
       const id = params.get('id');
       if(id)
         this.spotifyService.getAlbum(id).subscribe(data =>{
+          this.nextUrl = data.next;
           this.albums.push(...data.items);
         });
     });
@@ -46,6 +48,13 @@ export class AlbumsComponent implements OnInit {
 
   getYear(date: any){
     return new Date(date).getFullYear()
+  }
+
+  loadMore(){
+    this.spotifyService.loadMore(this.nextUrl).subscribe((data: any) =>{
+      this.nextUrl = data.next;
+      this.albums.push(...data.items);
+    });
   }
 
 }

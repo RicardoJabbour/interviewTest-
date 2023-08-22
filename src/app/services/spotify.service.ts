@@ -51,18 +51,22 @@ export class SpotifyService {
 
     searchArtists(query: string): Observable<any> {
       this.artistDataService.setSearchTerm(query);
+      if(query !== ''){
+        const url = `${this.apiUrl}/search`;
+        // const headers = this.getAuthHeaders();
 
-      const url = `${this.apiUrl}/search`;
-      // const headers = this.getAuthHeaders();
+        const params = new HttpParams()
+          .set('q', query)
+          .set('type', 'artist')
+          .set('limit',50)
+          .set('setToken','')
+          .set('offset', 0);
 
-      const params = new HttpParams()
-        .set('q', query)
-        .set('type', 'artist')
-        .set('limit',50)
-        .set('setToken','')
-        .set('offset', 0);
+        return this.http.get(url, { params });
+      }else{
+        return new Observable;
+      }
 
-      return this.http.get(url, { params });
       // return this.http.get(url, { headers, params });
     }
 
@@ -91,6 +95,13 @@ export class SpotifyService {
 
       return this.http.get(`${this.apiUrl}/artists/${albumId}/albums`, { params });
       // return this.http.get(`${this.apiUrl}/artists/${albumId}/albums`, { headers, params });
+    }
+
+    loadMore(url: string){
+      const params = new HttpParams()
+      .set('setToken','');
+
+      return this.http.get(url, { params });
     }
 
 }

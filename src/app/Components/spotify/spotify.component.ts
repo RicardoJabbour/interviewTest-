@@ -13,7 +13,6 @@ export class SpotifyComponent implements OnInit {
   constructor(private spotifyService: SpotifyService) {}
 
   ngOnInit() {
-    debugger
     // this.spotifyService.getPlaylists().subscribe((response: any) => {
     //   this.playlists = response.items;
     // });
