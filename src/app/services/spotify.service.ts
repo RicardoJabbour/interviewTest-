@@ -36,9 +36,6 @@ export class SpotifyService {
   }
 
   login(){
-      localStorage.setItem("client_id", this.clientId);
-      localStorage.setItem("client_secret", this.clientSecret); // In a real app you should not expose your client_secret to the user
-
       let url = this.AUTHORIZE;
       url += "?client_id=" + this.clientId;
       url += "&response_type=code";
@@ -50,15 +47,17 @@ export class SpotifyService {
 
     searchArtists(query: string): Observable<any> {
       const url = `${this.apiUrl}/search`;
-      const headers = this.getAuthHeaders();
+      // const headers = this.getAuthHeaders();
 
       const params = new HttpParams()
         .set('q', query)
         .set('type', 'artist')
         .set('limit',50)
+        .set('setToken','')
         .set('offset', 0);
 
-      return this.http.get(url, { headers, params });
+      return this.http.get(url, { params });
+      // return this.http.get(url, { headers, params });
     }
 
     private getAuthHeaders(): HttpHeaders {
@@ -69,7 +68,6 @@ export class SpotifyService {
     }
 
     public getAccessToken(): string {
-      // Implement your logic to fetch the access token (could be from a server or localStorage)
       let token = localStorage.getItem("access_token");
       if(token)
         return token;
@@ -79,13 +77,14 @@ export class SpotifyService {
 
     getAlbum(albumId: string): Observable<any> {
 
-      const headers = this.getAuthHeaders();
-
+      // const headers = this.getAuthHeaders();
       const params = new HttpParams()
+        .set('setToken','')
         .set('limit',50)
         .set('offset', 0);
 
-      return this.http.get(`${this.apiUrl}/artists/${albumId}/albums`, { headers, params });
+      return this.http.get(`${this.apiUrl}/artists/${albumId}/albums`, { params });
+      // return this.http.get(`${this.apiUrl}/artists/${albumId}/albums`, { headers, params });
     }
 
 }

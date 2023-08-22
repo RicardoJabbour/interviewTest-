@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
     this.spotifyService.getToken().subscribe((data: any) =>{
       if(data.access_token)
         localStorage.setItem("access_token", data.access_token);
-    })
+    });
   }
 
   showIcon(index:number) {

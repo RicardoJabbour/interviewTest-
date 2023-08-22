@@ -1,0 +1,27 @@
+.navBarrContainerStyle{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linkStyle{
+  text-decoration: unset !important;
+  color: white;
+}
+
+.homeIconStyle{
+  width: 35px;
+}
+
+.searchIcon{
+  width: 20px;
+}
+
+.homeContainer{
+  display: flex;
+  width: 10%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;}

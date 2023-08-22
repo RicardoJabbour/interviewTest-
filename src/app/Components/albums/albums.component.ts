@@ -27,8 +27,7 @@ export class AlbumsComponent implements OnInit {
       const id = params.get('id');
       if(id)
         this.spotifyService.getAlbum(id).subscribe(data =>{
-          this.albums.push(...data.items)
-          console.log(this.albums);
+          this.albums.push(...data.items);
         });
     });
 

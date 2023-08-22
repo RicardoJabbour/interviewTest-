@@ -1,56 +1,26 @@
-// import { Injectable } from '@angular/core';
-// import { HttpInterceptor, HttpRequest, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable,Injector } from '@angular/core';
+import { Observable } from 'rxjs';
 
-// @Injectable()
-// export class AuthInterceptor implements HttpInterceptor {
+@Injectable({
+  providedIn: 'root'
+})
+export class TokenInterceptorService implements HttpInterceptor{
 
-//   private clientId = '27bb4754053440f5a691aca4a7f4906a';
-//   private clientSecret = '2caad77cfa0045ffb581fea727c30a00';
-//   private tokenUrl = 'https://accounts.spotify.com/api/token';
+  constructor(private injector: Injector) { }
 
-//   accessToken : any;
-//   headers : any;
-//   http: any;
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let tokenizedReq
+    if (req.params.has('setToken')){
+      tokenizedReq = req.clone({
+        setHeaders:{
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+        }
+      })
+    }else {
+      tokenizedReq = req.clone({});
+    }
 
-//   intercept(request: HttpRequest<any>, next: HttpHandler) {
-//     // Add your custom headers here
-//     let headers = new HttpHeaders({
-//     });
-// debugger
-//     let r = this.getToken().subscribe((response: any) => {
-//       this.accessToken = response.access_token;
-//       headers = new HttpHeaders({
-//         Authorization: 'Bearer ' + this.accessToken,
-//         'Content-Type': 'application/json',
-//       });
-//     });
-
-//     // Clone the request and set the headers
-//     const modifiedRequest = request.clone({ headers });
-
-//     // Pass the modified request to the next interceptor or to the HttpClient if no interceptors are left
-//     return next.handle(modifiedRequest);
-//   }
-
-//   getToken() {
-//     const headers = new HttpHeaders({
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//       Authorization: 'Basic ' + btoa(this.clientId + ':' + this.clientSecret),
-//     });
-
-//     const body = 'grant_type=client_credentials';
-
-//     return this.http.post(this.tokenUrl, body, { headers });
-//   }
-
-//   // implementToken(){
-//   //   return this.getToken().subscribe((response: any) => {
-//   //     this.accessToken = response.access_token;
-//   //     this.headers = new HttpHeaders({
-//   //       Authorization: 'Bearer ' + this.accessToken,
-//   //     });
-//   //   });
-
-//   // }
-
-// }
+    return next.handle(tokenizedReq)
+  }
+}

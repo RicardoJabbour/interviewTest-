@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpotifyComponent } from './Components/spotify/spotify.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './Components/login/login.component';
 import { RouterModule } from '@angular/router';
@@ -16,6 +16,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
 import { MatIconModule } from '@angular/material/icon';
 import { AlbumsComponent } from './Components/albums/albums.component';
+import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AuthGuard } from './guard/auth.guard';
 
 @NgModule({
   declarations: [
@@ -24,8 +28,10 @@ import { AlbumsComponent } from './Components/albums/albums.component';
     LoginComponent,
     SearchComponent,
     AlbumsComponent,
+    NavBarComponent,
   ],
   imports: [
+    MatToolbarModule,
     MatIconModule,
     BrowserModule,
     AppRoutingModule,
@@ -41,11 +47,12 @@ import { AlbumsComponent } from './Components/albums/albums.component';
     // MatRippleModule,
   ],
   providers: [
-    // {
-    // provide:HTTP_INTERCEPTORS,
-    // useClass: AuthInterceptor,
-    // multi: true
-  // }
+    {
+    provide:HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  },
+  AuthGuard
 ],
   bootstrap: [AppComponent]
 })
