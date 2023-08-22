@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, switchMap } from 'rxjs';
+import { ArtistDataService } from './artist-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,10 @@ export class SpotifyService {
   private redirect_uri = "http://localhost:4200/search/"; // change this your value
   private apiUrl = 'https://api.spotify.com/v1';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private artistDataService: ArtistDataService
+    ) {
   }
 
   getToken() {
@@ -46,6 +50,8 @@ export class SpotifyService {
     }
 
     searchArtists(query: string): Observable<any> {
+      this.artistDataService.setSearchTerm(query);
+
       const url = `${this.apiUrl}/search`;
       // const headers = this.getAuthHeaders();
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistDataService } from 'src/app/services/artist-data.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   backgroundImageUrl = '../../../assets/images/spotifi20-1024x512.jpg';
 
   constructor(
-    private spotifyService:SpotifyService,
+    private spotifyService: SpotifyService,
   ) {}
 
   ngOnInit(): void {
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithSpotify(){
+    localStorage.setItem("isLogedIn", "true")
     this.spotifyService.login();
   }
 

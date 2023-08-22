@@ -41,6 +41,13 @@ export class SearchComponent implements OnInit {
       if(data.access_token)
         localStorage.setItem("access_token", data.access_token);
     });
+
+    if(this.artistDataService.getSearchTerm() !== ''){
+      this.searchControl.setValue(this.artistDataService.getSearchTerm());
+      this.spotifyService.searchArtists(this.artistDataService.getSearchTerm()).subscribe((results: any) => {
+        this.artists = results.artists.items;
+      });
+    }
   }
 
   showIcon(index:number) {
@@ -61,6 +68,11 @@ export class SearchComponent implements OnInit {
 
     this.artistDataService.setArtistData(artistToSet)
     this.router.navigate(['/album', artistId]);
+  }
+
+  clearSearch(){
+    this.searchControl.setValue('');
+    this.artists = [];
   }
 
 }

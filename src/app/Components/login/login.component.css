@@ -8,17 +8,17 @@
 
 .logInbtnStyle{
   position: relative;
-  background-color: #00ff5b;
+  background: linear-gradient(180deg,#55ff92 25%, #008630 100%);
+  box-shadow: -3px -3px 5px 0px #095725 inset;
   color: #000000;
   border-radius: 500px;
   font-size: inherit;
   padding: 14px 32px;
   display: flex;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: center;
   justify-content: center;
   flex-direction: row;
+  cursor: pointer;
 }
 
 .titleStle{

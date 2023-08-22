@@ -5,6 +5,7 @@ import { Artist } from '../models/artist.model';
   providedIn: 'root'
 })
 export class ArtistDataService {
+
   artistData = new Artist;
 
   setArtistData(artist: Artist) {
@@ -16,4 +17,15 @@ export class ArtistDataService {
   getArtistData(): Artist | null {
     return this.artistData;
   }
+
+  private searchTerm: string = '';
+
+  getSearchTerm(): string {
+    return this.searchTerm;
+  }
+
+  setSearchTerm(term: string) {
+    this.searchTerm = term;
+  }
+
 }
