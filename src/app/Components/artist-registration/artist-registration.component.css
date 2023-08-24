@@ -1,0 +1,74 @@
+.RowForm{
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px;
+  flex-wrap: wrap;
+}
+
+.example-full-width{
+  width: 30%;
+  min-width: 300px;
+}
+
+.titleStyle{
+  font-family: CircularSpTitle;
+  font-size: 30px;
+  font-style: normal;
+  display: flex;
+  /* color: white; */
+  font-weight: 500;
+  line-height: normal;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.artistContainer{
+  width: 98%;
+  display: flex;
+  margin-bottom: 40px;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.formStyle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imgContainerStyle{
+  height: 72px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #8e8e8e;
+  background-color: whitesmoke;
+  justify-content: space-between;
+}
+
+.lableInputContainer{
+  height: 100%;
+  margin-left: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.imgLableStyle{
+  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.03125em;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.albumStyle{
+  width: 95%;
+  margin-top: 20px;
+  border: 1px solid black;
+}

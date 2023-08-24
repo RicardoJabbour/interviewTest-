@@ -1,11 +1,12 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <div class="navBarrContainerStyle">
-      <div class="homeContainer">
+      <div *ngIf="isLogetIn === true" class="homeContainer">
         <img class="homeIconStyle" src="../../../assets/images/home.svg" [routerLink]="'/search'">
         <a class="linkStyle" [routerLink]="'/search'"> <img class="searchIcon" src="../../../assets/images/search.ico"> Search </a>
+        <a class="linkStyle" [routerLink]="'/artistregistration'"> Artist Registration </a>
       </div>
-      <a class="linkStyle" [routerLink]="'/login'"> Log Out </a>
+      <a *ngIf="isLogetIn === true" class="linkStyle" [routerLink]="'/login'"> Log Out </a>
 
     </div>
   </mat-toolbar-row>

@@ -22,6 +22,9 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guard/auth.guard';
 import { LoaderService } from './services/loader.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ArtistRegistrationComponent } from './Components/artist-registration/artist-registration.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Required for datepicker
 
 @NgModule({
   declarations: [
@@ -31,8 +34,11 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     SearchComponent,
     AlbumsComponent,
     NavBarComponent,
+    ArtistRegistrationComponent,
   ],
   imports: [
+    MatNativeDateModule,
+    MatDatepickerModule,
     MatToolbarModule,
     MatIconModule,
     BrowserModule,

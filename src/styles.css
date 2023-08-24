@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 body{
   margin: 0px !important;
 }
@@ -12,7 +15,7 @@ body{
   color: white;
   font-family: CircularSpTitle;
   width: 100%;
-  background: linear-gradient(180deg, #2f302d 25%, #253029 100%);
+  background: linear-gradient(180deg, #2f302d 25%, #253029 100%) !important;
   box-shadow: -3px -3px 5px 0px #133022 inset;
   align-items: center;
   justify-content: flex-end;
@@ -35,4 +38,32 @@ body{
 
 .mdc-linear-progress__bar-inner {
   border-color: #2dee00 !important;
+}
+.mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control
+{
+  height: 40px !important;
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper{
+  height: 72px !important;
+}
+
+.mdc-text-field--filled{
+  height: 72px !important;
+}
+
+.btnStyle{
+  position: relative !important;
+  background: linear-gradient(180deg,#8fcb72 25%, #019837 100%) !important;
+  box-shadow: -3px -3px 5px 0px #66c287 inset;
+  color: white !important;
+  border-radius: 50px !important;
+  font-size: inherit;
+  margin: 20px !important;
+  padding: 14px 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+  cursor: pointer;
 }

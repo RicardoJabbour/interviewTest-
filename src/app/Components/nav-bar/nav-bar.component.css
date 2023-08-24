@@ -22,7 +22,7 @@
 
 .homeContainer{
   display: flex;
-  width: 10%;
+  width: 20%;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;}

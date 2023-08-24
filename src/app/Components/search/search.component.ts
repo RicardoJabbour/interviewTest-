@@ -11,6 +11,7 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
+
 export class SearchComponent implements OnInit {
   searchQuery: string = '';
   artistInfo: any; // Store retrieved artist information here

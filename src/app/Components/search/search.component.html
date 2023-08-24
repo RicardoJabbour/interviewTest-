@@ -1,7 +1,4 @@
 <div [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" class="searchContainerStyle">
-  <!-- <div class="inputContainerStyle">
-    <input class="searchInputStyle" matInput [formControl]="searchControl" placeholder="Search for artists">
-  </div> -->
   <div class="inputContainerStyle">
     <input class="searchInputStyle" matInput [formControl]="searchControl" placeholder="Search for artists">
     <button mat-icon-button *ngIf="searchControl.value" (click)="clearSearch()">
