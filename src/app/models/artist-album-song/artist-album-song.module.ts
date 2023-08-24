@@ -1,10 +1,10 @@
 export interface Album {
   id?:number;
   name: string;
-  picture: string;
+  picture: any;
   date: Date;
   songs: Song[];
-  img?:string;
+  errMsg: string;
 }
 
 export interface Song {

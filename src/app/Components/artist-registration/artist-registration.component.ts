@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Album, ArtistFormData, Song, Type } from 'src/app/models/artist-album-song/artist-album-song.module';
 import { ArtistFormDataRepository } from 'src/app/services/artists.repository';
 
@@ -11,7 +11,6 @@ import { ArtistFormDataRepository } from 'src/app/services/artists.repository';
 export class ArtistRegistrationComponent {
 
   artistForm: FormGroup;
-  minDOB: string;
   books: any[]=[];
   arrayOfArtists: ArtistFormData[] = [];
   albumUrl: any;
@@ -20,38 +19,23 @@ export class ArtistRegistrationComponent {
   artistMsg: any;
   ArtistType: Type = Type.Artist;
   AlbumType: Type = Type.Album;
-  isImg: boolean = true;
   backgroundImageUrl = '../../../assets/images/addArtist.avif';
   albums: Album[] = [];
-artistId: number = -1;
-albumId: number = -1;
-songId : number = -1;
+  artistId: number = -1;
+  albumId: number = -1;
+  songId : number = -1;
 
   constructor(
     private fb: FormBuilder,
     private artistFormDataRepository: ArtistFormDataRepository,
     ) {
-    this.minDOB = new Date(new Date().getFullYear() - 25, 0, 1).toISOString().split('T')[0];
 
-    // this.artistForm = this.fb.group({
-    //   firstName: ['', [Validators.required, Validators.minLength(3)]],
-    //   lastName: ['', [Validators.required, Validators.minLength(3)]],
-    //   dob: ['', [Validators.required]],
-    //   email: ['', [Validators.required, Validators.email]],
-    //   phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{8,8}')]],
-    //   profilePicture: ['', [Validators.required]],
-    //   stageName: [''],
-    //   backstory: [''],
-    //   startingDate: [''],
-    //   albums: this.fb.array([this.createAlbum()]),
-    //   songs: this.fb.array([this.createSong()]),
-    // });
       this.artistId += 1;
     this.artistForm = this.fb.group({
       id: this.artistId,
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
-      dob: ['', [Validators.required]],
+      dob: ['', [Validators.required,this.minAgeValidator(25)]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{8,8}')]],
       profilePicture: ['', [Validators.required]],
@@ -67,30 +51,20 @@ songId : number = -1;
 
   ngOnInit(): void {}
 
-  isImgType(){
-    return this.isImg;
+  minAgeValidator(minAge: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value) {
+        const dob = new Date(control.value);
+        const today = new Date();
+        const minDate = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
+
+        if (dob >= minDate) {
+          return { minAge: true }; // Validation failed
+        }
+      }
+      return null; // Validation passed
+    };
   }
-
-  // convertToArtistFormData(): ArtistFormData {
-  //   const formData = this.artistForm.value;
-
-  //   const artistData: ArtistFormData = {
-  //     id:this.arrayOfArtists.length + "1",
-  //     firstName: formData.firstName,
-  //     lastName: formData.lastName,
-  //     dob: formData.dob,
-  //     email: formData.email,
-  //     phoneNumber: formData.phoneNumber,
-  //     profilePicture: formData.profilePicture,
-  //     stageName: formData.stageName,
-  //     backstory: formData.backstory,
-  //     startingDate: formData.startingDate,
-  //     albums: formData.albums,
-  //     songs: formData.songs,
-  //   };
-
-  //   return artistData;
-  // }
 
   convertToArtistFormData(): ArtistFormData {
     const formData = this.artistForm.value;
@@ -124,18 +98,15 @@ songId : number = -1;
     return artistData;
   }
 
-  selectFile(event: any,type: string) {
+  selectFile(event: any,type: string,id: number,album:Album) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
-			type === Type.Album ? this.albumMsg = 'You must select an image' : this.artistMsg = 'You must select an image';
-      this.isImg = true;
+			type === Type.Album ? album.errMsg = 'You must select an image' : this.artistMsg = 'You must select an image';
 			return;
 		}
 
 		var mimeType = event.target.files[0].type;
-
 		if (mimeType.match(/image\/*/) == null) {
-			type === Type.Album ? this.albumMsg = 'Only images are supported' : this.artistMsg = 'Only images are supported';
-      this.isImg = false;
+			type === Type.Album ? album.errMsg = 'Only images are supported' : this.artistMsg = 'Only images are supported';
 			return;
 		}
 
@@ -143,11 +114,36 @@ songId : number = -1;
 		reader.readAsDataURL(event.target.files[0]);
 
 		reader.onload = (_event) => {
-      this.isImg = true;
-			type === Type.Album ? this.albumMsg = '' : this.artistMsg = '';
-			type === Type.Album ? this.albumUrl = reader.result : this.artistUrl = reader.result;
-		}
+			type === Type.Album ? album.errMsg = '' : this.artistMsg = '';
+    }
 	}
+
+  onFileSelected(event: any, type: string,id: number): void {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const albums = this.artistForm.get('albums')?.value as Album[];
+      let album = albums.find(data => data.id === id);
+    album ? this.selectFile(event,type,id,album) : "";
+
+			type === Type.Album && (reader.result !== null && reader.result !== undefined) && album ?
+      album.picture = e.target.result : this.artistUrl = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  getAlbumImg(id: number){
+    const albums = this.artistForm.get('albums')?.value as Album[];
+      let album = albums.find(data => data.id === id);
+      return album?.picture;
+  }
+
+  getErrMsg(id: number){
+    const albums = this.artistForm.get('albums')?.value as Album[];
+    let album = albums.find(data => data.id === id);
+    return album?.errMsg;
+  }
 
   createAlbum(): FormGroup {
     this.albumId += 1;
@@ -171,10 +167,6 @@ songId : number = -1;
     });
   }
 
-  get songs(): FormArray {
-    return this.artistForm.get('albums')?.value.map((album: Album) => album.songs) as FormArray;
-  }
-
   addAlbum(artistId: number) {
 
     const artist = this.artistForm.value;
@@ -183,12 +175,10 @@ songId : number = -1;
       albs.push(this.createAlbum());
 
       const albums = this.artistForm.get('albums')?.value as Album[];
-      // this.albums = [];
       albums.forEach(al =>{
         if(!this.albums.some(obj => obj.id === al.id))
           this.albums.push(al)
       })
-      // this.albums.push(...albums)
     }
   }
 
@@ -210,9 +200,32 @@ songId : number = -1;
       const artistData = this.convertToArtistFormData();
       this.arrayOfArtists.push(artistData);
       console.log('Array of Artists:', this.arrayOfArtists);
-      this.artistForm.reset({});
+      // this.artistForm.reset({ });
+
+// Call this when you want to reset the form
+this.resetForm();
+
     }
   }
+
+  resetForm() {
+    this.artistForm.patchValue({
+      id: this.artistId,
+      firstName: '',
+      lastName: '',
+      dob: '',
+      email: '',
+      phoneNumber: '',
+      profilePicture: '',
+      stageName: '',
+      backstory: '',
+      startingDate: '',
+      albums: [this.createAlbum()]
+    });
+
+  this.artistForm.markAsPristine();
+  }
+
 
   saveForm(){
     this.artistFormDataRepository.setBooks(this.arrayOfArtists);
